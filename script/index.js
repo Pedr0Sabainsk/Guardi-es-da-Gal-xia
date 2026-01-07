@@ -12,7 +12,7 @@ const images = document.getElementById('images')
 const menu = document.getElementById('menu')
 const navigation = document.getElementById('navigation')
 const memberName = document.getElementById('member_name')
-const allImages = document.querySelectorAll('#images img') // Nova variável
+const allImages = document.querySelectorAll('#images img') 
 
 function changeStatusButtons() {
     let prev = document.getElementById('button_prev')
@@ -25,14 +25,13 @@ function changeMember(memberId) {
     activeMember = memberId
     const member = members[activeMember]
 
-    // OPÇÃO B: Método com opacity
-    // Remove 'active' de todas as imagens
+    
     allImages.forEach(img => img.classList.remove('active'));
     
-    // Adiciona 'active' na imagem atual
+    
     allImages[activeMember].classList.add('active');
     
-    // Atualiza nome e estilo
+    
     memberName.classList = member.id
     changeName(member.name);
     changeStatusButtons();
@@ -52,10 +51,10 @@ function setMember(memberId) {
     changeMenu();
 }
 
-// Inicializa
+
 document.addEventListener('DOMContentLoaded', function() {
     changeStatusButtons();
-    // Garante que a primeira imagem está ativa
+    
     if (allImages.length > 0) {
         allImages[0].classList.add('active');
     }
