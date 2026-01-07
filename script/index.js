@@ -1,4 +1,3 @@
-
 const members = [
   { name: 'Peter Quill', id: 'peter' },
   { name: 'Gamora Titan', id: 'gamora' },
@@ -13,43 +12,51 @@ const images = document.getElementById('images')
 const menu = document.getElementById('menu')
 const navigation = document.getElementById('navigation')
 const memberName = document.getElementById('member_name')
+const allImages = document.querySelectorAll('#images img') // Nova variável
 
-  function changeStatusButtons() {
-
+function changeStatusButtons() {
     let prev = document.getElementById('button_prev')
-
-
     let next = document.getElementById('button_next')
-
     prev.disabled = activeMember === 0;
     next.disabled = activeMember === members.length - 1;
-      
 }
 
-changeStatusButtons();
+function changeMember(memberId) {
+    activeMember = memberId
+    const member = members[activeMember]
 
-function changeMember(memberId){
-  activeMember = memberId
-  const member = members[activeMember]
-
-  images.style.transform = `translateY(${-100 * activeMember}vh)`;
-  memberName.classList = member.id
-
-  changeName(member.name);
-  changeStatusButtons();
+    // OPÇÃO B: Método com opacity
+    // Remove 'active' de todas as imagens
+    allImages.forEach(img => img.classList.remove('active'));
+    
+    // Adiciona 'active' na imagem atual
+    allImages[activeMember].classList.add('active');
+    
+    // Atualiza nome e estilo
+    memberName.classList = member.id
+    changeName(member.name);
+    changeStatusButtons();
 }
 
 function navigationMember(direction) {
-  changeMember(activeMember + direction);
-
+    changeMember(activeMember + direction);
 }
 
 function changeMenu() {
- menu.classList.toggle('active');
- navigation.classList.toggle('active');
+    menu.classList.toggle('active');
+    navigation.classList.toggle('active');
 }
 
 function setMember(memberId) {
-  changeMember(memberId);
-  changeMenu();
+    changeMember(memberId);
+    changeMenu();
 }
+
+// Inicializa
+document.addEventListener('DOMContentLoaded', function() {
+    changeStatusButtons();
+    // Garante que a primeira imagem está ativa
+    if (allImages.length > 0) {
+        allImages[0].classList.add('active');
+    }
+});
